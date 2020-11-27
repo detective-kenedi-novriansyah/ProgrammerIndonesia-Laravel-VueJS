@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\ProjectsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,12 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('projects', ProjectsController::class);
 
 Auth::routes();
 

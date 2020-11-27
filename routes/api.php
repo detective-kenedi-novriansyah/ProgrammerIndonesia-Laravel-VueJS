@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,13 +20,13 @@ use App\Http\Controllers\PostController;
 // });
 
 
-Route::get('/', function() {
-    return view('home');
-});
+// Route::get('/', function() {
+//     return view('home');
+// });
 
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => ''
 ], function ($router) {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class,'logout']);
@@ -35,16 +34,21 @@ Route::group([
     Route::post('me', [AuthController::class,'me']);
     Route::post('create', [AuthController::class, 'store']);
     Route::get('profile/{token}', [AuthController::class, 'profile']);
-
 });
 
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'post'
+    'prefix' => ''
 ], function ($router) {
-    Route::get('', [PostController::class, "index"]);
-    Route::post('store/', [PostController::class, 'store']);
-    Route::get('{id}', [PostController::class, 'show']);
-    Route::put('{id}', [PostController::class, 'update']);
-    Route::delete('{id}', [PostController::class, 'destroy']);
+    Route::get('post', [PostController::class, "index"]);
+    Route::post('post/store/', [PostController::class, 'store']);
+    Route::get('post/{id}', [PostController::class, 'show']);
+    Route::put('post/{id}', [PostController::class, 'update']);
+    Route::delete('post/{id}', [PostController::class, 'destroy']);
 });
+
+// Route::resource('user', 'AuthController');
+
+// Route::resource('users', 'UserAPIController');
+
+// Route::resource('openapis', App\Http\Controllers\API\OpenapiAPIController::class);

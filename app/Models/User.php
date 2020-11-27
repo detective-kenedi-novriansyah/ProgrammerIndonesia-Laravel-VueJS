@@ -2,54 +2,52 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Eloquent as Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+/**
+ * Class User
+ * @package App\Models
+ * @version November 23, 2020, 5:49 pm UTC
+ *
+ * @property string $name
+ */
+class User extends Model
 {
-    use HasFactory, Notifiable;
+    use SoftDeletes;
 
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
+    use HasFactory;
 
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
+    public $table = 'users';
+    
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'profile',
-        'email',
-        'password',
+    protected $dates = ['deleted_at'];
+
+
+
+    public $fillable = [
+        'name'
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
+     * The attributes that should be casted to native types.
      *
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'id' => 'integer',
+        'name' => 'string'
     ];
+
+    /**
+     * Validation rules
+     *
+     * @var array
+     */
+    public static $rules = [
+        
+    ];
+
+    
 }

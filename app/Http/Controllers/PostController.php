@@ -8,16 +8,24 @@ use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\Post as PostResource;
 
+/**
+ * @OA\Get(
+ * path="/api/v1/post",
+ * summary="Post",
+ * description="Post",
+ * @OA\Response(
+ *  response=200,
+ *  description="Success",
+ *  @OA\JsonContent())
+ * )
+ */
+
 class PostController extends Controller
 {
     public function __construct(){
         $this->middleware('auth:api', ['except' => 'index']);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $getAll = Post::paginate(15);
